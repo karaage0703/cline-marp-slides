@@ -4,7 +4,7 @@ Cline（VS Code の AI コーディング支援拡張）を活用して、Markdo
 
 ## 概要
 
-本プロジェクトは、**Cline（VS Code の AI コーディング支援拡張）を活用して、Markdown 形式のスライドを自動生成し、Marp でスライドを作成するシステム** を提供します。  
+本プロジェクトは、**Cline（VS Code の AI コーディング支援拡張）を活用して、Markdown 形式のスライドを自動生成し、Marp でスライドを作成するシステム** を提供します。
 ユーザーは **自由なフォーマットでアウトライン（原稿）を作成** し、それを基に **Cline が Marp 用の Markdown を生成** し、最終的に Marp でスライドを出力します。
 
 ## フォルダ構成
@@ -23,7 +23,12 @@ Cline（VS Code の AI コーディング支援拡張）を活用して、Markdo
 │   │── generate_slides.sh  # スライド生成スクリプト
 │   │── create_sample_images.py  # サンプル画像生成スクリプト
 │── /output          # 生成されたスライド（PDF, PPTX, HTML）
+│── /docs            # ドキュメント
+│   │── design.md    # 要件・設計書
+│── /.devcontainer   # VSCode Dev Containers設定
 │── README.md        # プロジェクトの説明
+│── Dockerfile       # Dockerイメージ定義
+│── docker-compose.yml # Docker Compose設定
 ```
 
 ## 使い方
@@ -86,10 +91,68 @@ Markdownからは相対パスで参照します：
 
 ## 必要なツール
 
+### ローカル環境での実行
 - VS Code
 - Cline拡張機能
 - Marp CLI（`npm install -g @marp-team/marp-cli`）
 - Python 3.x（サンプル画像生成用）
+- Chromium/Chrome（PDF/PPTX生成用）
+
+### Docker環境での実行
+- Docker
+- Docker Compose
+
+## Docker環境での使用方法
+
+Docker環境を使用すると、依存関係のインストールなしにMarpスライドの作成・編集が可能です。
+
+### 1. Dockerコンテナの起動
+
+```bash
+# コンテナをビルドして起動
+docker-compose up -d
+
+# コンテナ内でシェルを実行
+docker-compose exec app bash
+```
+
+### 2. スライドの生成
+
+コンテナ内で以下のコマンドを実行して、スライドを生成します：
+
+```bash
+# PDFを生成
+./scripts/generate_slides.sh --format pdf --output presentation
+
+# PowerPointを生成
+./scripts/generate_slides.sh --format pptx --output presentation
+
+# HTMLを生成
+./scripts/generate_slides.sh --format html --output presentation
+```
+
+生成されたスライドは `output` ディレクトリに保存され、ホストマシンからも確認できます。
+
+## VSCode Dev Containers での使用方法
+
+VSCode Dev Containersを使用すると、VSCode内でDockerコンテナを開発環境として使用できます。
+
+### 1. Dev Containerの起動
+
+1. VSCodeで「Remote-Containers: Reopen in Container」コマンドを実行
+2. コンテナ内のVSCode環境が自動的に設定され、以下の機能が利用可能になります：
+   - Marp for VSCode拡張機能によるプレビュー
+   - Markdown編集の強化機能
+   - ターミナルからの直接コマンド実行
+   - 自動フォーマット
+
+### 2. スライドの生成
+
+VSCode内のターミナルで以下のコマンドを実行します：
+
+```bash
+./scripts/generate_slides.sh --format html --output presentation
+```
 
 ## ライセンス
 

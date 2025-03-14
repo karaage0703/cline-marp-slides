@@ -128,7 +128,7 @@ rm -f "$TMP_SLIDES_PATH"
 # 変換結果の確認
 if [ $? -eq 0 ]; then
     echo "変換が完了しました: $OUTPUT_FILE"
-    
+
     # 出力ファイルを開く（オプション）
     case "$(uname)" in
         Darwin*)

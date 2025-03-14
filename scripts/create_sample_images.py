@@ -10,9 +10,7 @@ create_sample_images.py
 """
 
 import os
-import sys
 from pathlib import Path
-import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -61,61 +59,253 @@ def create_folder_diagram(output_path, width=800, height=500):
     draw.text((x_start, y_start), "/project-root", fill=(0, 0, 150), font=folder_font)
 
     # source フォルダ
-    draw.line([(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 10, y_start + y_spacing), (x_start + 30, y_start + y_spacing)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 40, y_start + y_spacing), "/source", fill=(0, 0, 150), font=folder_font)
+    draw.line(
+        [(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing)],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [(x_start + 10, y_start + y_spacing), (x_start + 30, y_start + y_spacing)],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 40, y_start + y_spacing),
+        "/source",
+        fill=(0, 0, 150),
+        font=folder_font,
+    )
 
     # source/outline.md
-    draw.line([(x_start + 50, y_start + y_spacing + 25), (x_start + 50, y_start + y_spacing * 2)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 50, y_start + y_spacing * 2), (x_start + 70, y_start + y_spacing * 2)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 80, y_start + y_spacing * 2), "outline.md", fill=(150, 0, 0), font=file_font)
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing + 25),
+            (x_start + 50, y_start + y_spacing * 2),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 2),
+            (x_start + 70, y_start + y_spacing * 2),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 80, y_start + y_spacing * 2),
+        "outline.md",
+        fill=(150, 0, 0),
+        font=file_font,
+    )
 
     # source/images
-    draw.line([(x_start + 50, y_start + y_spacing + 25), (x_start + 50, y_start + y_spacing * 3)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 50, y_start + y_spacing * 3), (x_start + 70, y_start + y_spacing * 3)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 80, y_start + y_spacing * 3), "/images", fill=(0, 0, 150), font=folder_font)
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing + 25),
+            (x_start + 50, y_start + y_spacing * 3),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 3),
+            (x_start + 70, y_start + y_spacing * 3),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 80, y_start + y_spacing * 3),
+        "/images",
+        fill=(0, 0, 150),
+        font=folder_font,
+    )
 
     # source/images/diagram.png & logo.png
-    draw.line([(x_start + 90, y_start + y_spacing * 3 + 25), (x_start + 90, y_start + y_spacing * 4)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 90, y_start + y_spacing * 4), (x_start + 110, y_start + y_spacing * 4)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 120, y_start + y_spacing * 4), "diagram.png, logo.png", fill=(150, 0, 0), font=file_font)
+    draw.line(
+        [
+            (x_start + 90, y_start + y_spacing * 3 + 25),
+            (x_start + 90, y_start + y_spacing * 4),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 90, y_start + y_spacing * 4),
+            (x_start + 110, y_start + y_spacing * 4),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 120, y_start + y_spacing * 4),
+        "diagram.png, logo.png",
+        fill=(150, 0, 0),
+        font=file_font,
+    )
 
     # generated フォルダ
-    draw.line([(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing * 5)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 10, y_start + y_spacing * 5), (x_start + 30, y_start + y_spacing * 5)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 40, y_start + y_spacing * 5), "/generated", fill=(0, 0, 150), font=folder_font)
+    draw.line(
+        [(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing * 5)],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 10, y_start + y_spacing * 5),
+            (x_start + 30, y_start + y_spacing * 5),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 40, y_start + y_spacing * 5),
+        "/generated",
+        fill=(0, 0, 150),
+        font=folder_font,
+    )
 
     # generated/slides.md
-    draw.line([(x_start + 50, y_start + y_spacing * 5 + 25), (x_start + 50, y_start + y_spacing * 6)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 50, y_start + y_spacing * 6), (x_start + 70, y_start + y_spacing * 6)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 80, y_start + y_spacing * 6), "slides.md", fill=(150, 0, 0), font=file_font)
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 5 + 25),
+            (x_start + 50, y_start + y_spacing * 6),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 6),
+            (x_start + 70, y_start + y_spacing * 6),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 80, y_start + y_spacing * 6),
+        "slides.md",
+        fill=(150, 0, 0),
+        font=file_font,
+    )
 
     # generated/theme.css
-    draw.line([(x_start + 50, y_start + y_spacing * 5 + 25), (x_start + 50, y_start + y_spacing * 7)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 50, y_start + y_spacing * 7), (x_start + 70, y_start + y_spacing * 7)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 80, y_start + y_spacing * 7), "theme.css", fill=(150, 0, 0), font=file_font)
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 5 + 25),
+            (x_start + 50, y_start + y_spacing * 7),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 7),
+            (x_start + 70, y_start + y_spacing * 7),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 80, y_start + y_spacing * 7),
+        "theme.css",
+        fill=(150, 0, 0),
+        font=file_font,
+    )
 
     # scripts フォルダ
-    draw.line([(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing * 8)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 10, y_start + y_spacing * 8), (x_start + 30, y_start + y_spacing * 8)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 40, y_start + y_spacing * 8), "/scripts", fill=(0, 0, 150), font=folder_font)
+    draw.line(
+        [(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing * 8)],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 10, y_start + y_spacing * 8),
+            (x_start + 30, y_start + y_spacing * 8),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 40, y_start + y_spacing * 8),
+        "/scripts",
+        fill=(0, 0, 150),
+        font=folder_font,
+    )
 
     # scripts/generate_slides.sh
-    draw.line([(x_start + 50, y_start + y_spacing * 8 + 25), (x_start + 50, y_start + y_spacing * 9)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 50, y_start + y_spacing * 9), (x_start + 70, y_start + y_spacing * 9)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 80, y_start + y_spacing * 9), "generate_slides.sh", fill=(150, 0, 0), font=file_font)
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 8 + 25),
+            (x_start + 50, y_start + y_spacing * 9),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 9),
+            (x_start + 70, y_start + y_spacing * 9),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 80, y_start + y_spacing * 9),
+        "generate_slides.sh",
+        fill=(150, 0, 0),
+        font=file_font,
+    )
 
     # output フォルダ
-    draw.line([(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing * 10)], fill=(0, 0, 0), width=2)
-    draw.line([(x_start + 10, y_start + y_spacing * 10), (x_start + 30, y_start + y_spacing * 10)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 40, y_start + y_spacing * 10), "/output", fill=(0, 0, 150), font=folder_font)
+    draw.line(
+        [(x_start + 10, y_start + 25), (x_start + 10, y_start + y_spacing * 10)],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.line(
+        [
+            (x_start + 10, y_start + y_spacing * 10),
+            (x_start + 30, y_start + y_spacing * 10),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 40, y_start + y_spacing * 10),
+        "/output",
+        fill=(0, 0, 150),
+        font=folder_font,
+    )
 
     # output/presentation.pdf
     draw.line(
-        [(x_start + 50, y_start + y_spacing * 10 + 25), (x_start + 50, y_start + y_spacing * 11)], fill=(0, 0, 0), width=2
+        [
+            (x_start + 50, y_start + y_spacing * 10 + 25),
+            (x_start + 50, y_start + y_spacing * 11),
+        ],
+        fill=(0, 0, 0),
+        width=2,
     )
-    draw.line([(x_start + 50, y_start + y_spacing * 11), (x_start + 70, y_start + y_spacing * 11)], fill=(0, 0, 0), width=2)
-    draw.text((x_start + 80, y_start + y_spacing * 11), "presentation.pdf, .pptx, .html", fill=(150, 0, 0), font=file_font)
+    draw.line(
+        [
+            (x_start + 50, y_start + y_spacing * 11),
+            (x_start + 70, y_start + y_spacing * 11),
+        ],
+        fill=(0, 0, 0),
+        width=2,
+    )
+    draw.text(
+        (x_start + 80, y_start + y_spacing * 11),
+        "presentation.pdf, .pptx, .html",
+        fill=(150, 0, 0),
+        font=file_font,
+    )
 
     # 画像を保存
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -163,7 +353,12 @@ def create_logo(output_path, width=400, height=400):
     left, top, right, bottom = draw.textbbox((0, 0), text, font=logo_font)
     text_width = right - left
     text_height = bottom - top
-    draw.text((center_x - text_width // 2, center_y - text_height // 2), text, fill=(255, 255, 255), font=logo_font)
+    draw.text(
+        (center_x - text_width // 2, center_y - text_height // 2),
+        text,
+        fill=(255, 255, 255),
+        font=logo_font,
+    )
 
     # 画像を保存
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
