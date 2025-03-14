@@ -1,3 +1,9 @@
 # Requirements for the Python project
 # Add your project dependencies here.
 pytest
+pillow>=11.0.0  # PILライブラリ（画像処理用）
+numpy>=1.26.0   # 数値計算ライブラリ
+
+# Note: Marp CLI is a Node.js package and should be installed separately:
+# npm install -g @marp-team/marp-cli
+# or use npx as in the scripts/generate_slides.sh script
