@@ -28,17 +28,20 @@ show_help() {
     echo "  -f, --format FORMAT   出力フォーマット（pdf, pptx, html）"
     echo "  -o, --output FILE     出力ファイル名（拡張子なし）"
     echo "  -t, --theme FILE      カスタムテーマファイル"
+    echo "  -e, --editable        編集可能なPPTXを生成（pptxフォーマット時のみ有効）"
     echo "  -h, --help            このヘルプメッセージを表示"
     echo ""
     echo "例:"
     echo "  $0 --format pdf --output presentation"
     echo "  $0 -f pptx -o presentation -t custom-theme.css"
+    echo "  $0 -f pptx -o presentation --editable"
 }
 
 # デフォルト値
 FORMAT="pdf"
 OUTPUT_NAME="presentation"
 THEME_FILE="$THEME_PATH"
+EDITABLE=false
 
 # コマンドライン引数の解析
 while [[ $# -gt 0 ]]; do
@@ -54,6 +57,10 @@ while [[ $# -gt 0 ]]; do
         -t|--theme)
             THEME_FILE="$2"
             shift 2
+            ;;
+        -e|--editable)
+            EDITABLE=true
+            shift
             ;;
         -h|--help)
             show_help
@@ -108,8 +115,13 @@ case $FORMAT in
         npx @marp-team/marp-cli@latest "$TMP_SLIDES_PATH" --pdf --allow-local-files $THEME_OPTION -o "$OUTPUT_FILE"
         ;;
     pptx)
-        echo "PowerPointに変換しています..."
-        npx @marp-team/marp-cli@latest "$TMP_SLIDES_PATH" --pptx --allow-local-files $THEME_OPTION -o "$OUTPUT_FILE"
+        if [ "$EDITABLE" = true ]; then
+            echo "編集可能なPowerPointに変換しています..."
+            npx @marp-team/marp-cli@latest "$TMP_SLIDES_PATH" --pptx --pptx-editable --allow-local-files $THEME_OPTION -o "$OUTPUT_FILE"
+        else
+            echo "PowerPointに変換しています..."
+            npx @marp-team/marp-cli@latest "$TMP_SLIDES_PATH" --pptx --allow-local-files $THEME_OPTION -o "$OUTPUT_FILE"
+        fi
         ;;
     html)
         echo "HTMLに変換しています..."

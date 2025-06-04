@@ -83,6 +83,10 @@
    - 適切な見出し、箇条書き、コードブロック、画像などを使用
 3. スライドからPowerPointを生成する：
    ```bash
+   # 編集可能なPowerPointを生成（推奨）
+   ./scripts/generate_slides.sh --format pptx --editable
+
+   # 通常のPowerPointを生成
    ./scripts/generate_slides.sh --format pptx
    ```
 4. 必要に応じて他の形式（PDF、HTML）も生成：
@@ -91,11 +95,67 @@
    ./scripts/generate_slides.sh --format html
    ```
 
+#### 編集可能なPowerPoint生成について
+
+Marp-cli v4.1.0以降では、`--pptx-editable`オプションを使用して編集可能なPowerPointファイルを生成できます：
+
+- **編集可能なPPTX**: テキストや図形を直接PowerPointで編集可能
+- **通常のPPTX**: 画像として埋め込まれ、編集は制限される
+- **必要な依存関係**: LibreOfficeが必要（macOS: `brew install --cask libreoffice`）
+
+**使用例**：
+```bash
+# 編集可能なPowerPointを生成
+./scripts/generate_slides.sh --format pptx --output presentation --editable
+
+# 出力ファイル名を指定して編集可能なPowerPointを生成
+./scripts/generate_slides.sh -f pptx -o my_presentation -e
+```
+
+#### Mermaid図表の作成と取り込み手順
+
+1. **Mermaid CLIのインストール**：
+   ```bash
+   npm install -g @mermaid-js/mermaid-cli
+   ```
+
+2. **Mermaidファイルの作成**：
+   - `source/mermaid/` ディレクトリにMermaidファイル（`.mmd`）を作成
+   - 適切なファイル名を使用（例：`onpremise_environment.mmd`、`docker_isolation.mmd`）
+
+3. **Mermaid記法の例**：
+   ```mermaid
+   graph TB
+       A[開始] --> B{条件}
+       B -->|Yes| C[処理1]
+       B -->|No| D[処理2]
+       
+       style A fill:#e1f5fe,stroke:#2196f3,stroke-width:2px
+       style C fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+   ```
+
+4. **画像生成**：
+   ```bash
+   mmdc -i source/mermaid/filename.mmd -o source/images/mermaid_diagramX.png -w 800 -H 600
+   ```
+
+5. **スライドへの取り込み**：
+   - `generated/slides.md` でMermaidコードブロックを画像参照に置き換え
+   ```markdown
+   ![図の説明](../source/images/mermaid_diagramX.png)
+   ```
+
+6. **ファイル管理**：
+   - Mermaidソースファイル：`source/mermaid/` で管理
+   - 生成された画像：`source/images/` に保存
+   - 再利用・修正時はMermaidファイルを編集後、再生成
+
 #### スライド作成のベストプラクティス
 
 - 各スライドは1つの主要なアイデアに焦点を当てる
 - 箇条書きは簡潔に、1行あたり1-2文に抑える
 - 適切な画像や図表を使用して視覚的に情報を伝える
+- Mermaid図表で複雑な関係性を視覚化する
 - コードサンプルは短く、重要な部分のみに絞る
 - 色やフォントの一貫性を保つ
 - 必要に応じて2カラムレイアウト（`<div class="columns">`）を活用

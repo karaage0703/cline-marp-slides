@@ -65,7 +65,10 @@ VS Code内でCline拡張機能を使用して、アウトラインからMarp用�
 # PDFを生成
 ./scripts/generate_slides.sh --format pdf --output presentation
 
-# PowerPointを生成
+# 編集可能なPowerPointを生成（推奨）
+./scripts/generate_slides.sh --format pptx --output presentation --editable
+
+# 通常のPowerPointを生成
 ./scripts/generate_slides.sh --format pptx --output presentation
 
 # HTMLを生成
@@ -73,6 +76,39 @@ VS Code内でCline拡張機能を使用して、アウトラインからMarp用�
 ```
 
 生成されたスライドは `output` ディレクトリに保存されます。
+
+### 編集可能なPowerPoint生成について
+
+Marp-cli v4.1.0以降では、`--editable`オプション（内部的には`--pptx-editable`）を使用して編集可能なPowerPointファイルを生成できます：
+
+- **編集可能なPPTX**: テキストや図形を直接PowerPointで編集可能
+- **通常のPPTX**: 画像として埋め込まれ、編集は制限される
+- **必要な依存関係**: LibreOfficeが必要
+
+#### LibreOfficeのインストール
+
+編集可能なPowerPointを生成するには、LibreOfficeが必要です：
+
+```bash
+# macOS
+brew install --cask libreoffice
+
+# Ubuntu/Debian
+sudo apt-get install libreoffice
+
+# CentOS/RHEL
+sudo yum install libreoffice
+```
+
+#### 使用例
+
+```bash
+# 編集可能なPowerPointを生成
+./scripts/generate_slides.sh --format pptx --output my_presentation --editable
+
+# 短縮形でも可能
+./scripts/generate_slides.sh -f pptx -o my_presentation -e
+```
 
 ## カスタマイズ
 
@@ -97,6 +133,7 @@ Markdownからは相対パスで参照します：
 - Marp CLI（`npm install -g @marp-team/marp-cli`）
 - Python 3.x（サンプル画像生成用）
 - Chromium/Chrome（PDF/PPTX生成用）
+- LibreOffice（編集可能なPPTX生成用、オプション）
 
 ### Docker環境での実行
 - Docker
@@ -124,7 +161,10 @@ docker-compose exec app bash
 # PDFを生成
 ./scripts/generate_slides.sh --format pdf --output presentation
 
-# PowerPointを生成
+# 編集可能なPowerPointを生成（推奨）
+./scripts/generate_slides.sh --format pptx --output presentation --editable
+
+# 通常のPowerPointを生成
 ./scripts/generate_slides.sh --format pptx --output presentation
 
 # HTMLを生成
@@ -151,6 +191,10 @@ VSCode Dev Containersを使用すると、VSCode内でDockerコンテナを開�
 VSCode内のターミナルで以下のコマンドを実行します：
 
 ```bash
+# 編集可能なPowerPointを生成（推奨）
+./scripts/generate_slides.sh --format pptx --output presentation --editable
+
+# HTMLを生成
 ./scripts/generate_slides.sh --format html --output presentation
 ```
 
