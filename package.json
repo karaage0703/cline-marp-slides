@@ -7,6 +7,9 @@
     "generate-html": "scripts/generate_slides.sh --format html --output presentation",
     "generate-pdf": "scripts/generate_slides.sh --format pdf --output presentation",
     "generate-pptx": "scripts/generate_slides.sh --format pptx --output presentation",
+    "generate-pptx-editable": "scripts/generate_slides.sh --format pptx --output presentation --editable",
+    "create-project": "scripts/create_project.sh",
+    "list-projects": "ls -1 projects/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
